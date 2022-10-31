@@ -3,5 +3,24 @@
     "console.table": "^0.10.0",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3"
-  }
+  },
+  "name": "employee-tracker",
+  "description": "## User Story ```AS A business owner I WANT to be able to view and manage the departments, roles, and employees in my company SO THAT I can organize and plan my business ```",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fdeaquino/employee-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fdeaquino/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/fdeaquino/employee-tracker#readme"
 }
