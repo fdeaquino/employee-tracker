@@ -72,7 +72,6 @@ All departments for [My_Business].
 ==================================
 
     `);
-    // TODO: sql query command to view all departments
     const sqlCommand = `SELECT * FROM departments`;
 
     db.query(sqlCommand, (err, result) => {
@@ -85,7 +84,21 @@ All departments for [My_Business].
 };
 
 const viewAllRoles = () => {
-    console.log('You are viewing all roles.');
+    console.log(`
+
+All departments for [My_Business].
+==================================
+
+    `);
+    const sqlCommand = `SELECT * FROM roles`;
+
+    db.query(sqlCommand, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        console.table(result);
+        businessOwnerPrompt();
+    })
 };
 
 const viewAllEmployees = () => {
