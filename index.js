@@ -5,7 +5,10 @@ const db = require('./db/connection');
 
 db.connect(err => {
     if (err) throw err;
-    // console.log('Connected to the [My_Business] database. You can now keep track of your employees, their roles, and your business departments!')
+    console.log(`
+    Database connection successful!
+    Connected to [My_Business]`);
+    businessOwnerPrompt();
 });
 
 function businessOwnerPrompt() {
@@ -13,6 +16,10 @@ function businessOwnerPrompt() {
     =================================
     
     Welcome to your Employee Manager
+
+    You can now keep track of your 
+    employees, their roles, and your 
+    business departments!
     
     =================================
     `);
@@ -59,7 +66,22 @@ function businessOwnerPrompt() {
 };
 
 const viewAllDepartments = () => {
-    console.log('You are viewing all departments.');
+    console.log(`
+
+All departments for [My_Business].
+==================================
+
+    `);
+    // TODO: sql query command to view all departments
+    const sqlCommand = `SELECT * FROM departments`;
+
+    db.query(sqlCommand, (err, result) => {
+        if (err) {
+            console.log(err);
+        }
+        console.table(result);
+        businessOwnerPrompt();
+    })
 };
 
 const viewAllRoles = () => {
@@ -86,6 +108,5 @@ const updateARole = () => {
     console.log('You are updating an employee role.');
 };
 
-businessOwnerPrompt();
 
 
