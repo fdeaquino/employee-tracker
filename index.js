@@ -5,7 +5,7 @@ const db = require('./db/connection');
 
 db.connect(err => {
     if (err) throw err;
-    console.log('Connected to the [My_Business] database. You can now keep track of your employees, their roles, and your business departments!')
+    // console.log('Connected to the [My_Business] database. You can now keep track of your employees, their roles, and your business departments!')
 });
 
 function businessOwnerPrompt() {
@@ -37,7 +37,7 @@ function businessOwnerPrompt() {
             // Else if user chooses to [Add A Role] from the 'optionsForOwner' prompts, then run the function to Add A Role
             // Else if user chooses to [Add An Employee] from the 'optionsForOwner' prompts, then run the function to Add An Employee
             // Else if user chooses to [Update An Employee Role] from the 'optionsForOwner' prompts, then run the function to Update An Employee Role
-
+            // TODO: use switch case, the switch will have the choice/response
             if (optionsForOwner === 'View All Departments') {
                 return viewAllDepartments();
             } else if (optionsForOwner === 'View All Roles') {
