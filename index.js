@@ -1,17 +1,12 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
-const consoleTable = require('console.table');
-const db = require('./db/connection');
+require('console.table');
+const db = require('./db')
 
-db.connect(err => {
-    if (err) throw err;
-    console.log(`
-    Database connection successful!
-    Connected to [My_Business]`);
-    businessOwnerPrompt();
-});
 
-function businessOwnerPrompt() {
+// Welcome message for the Business Owner; initiates inquirer prompts
+start()
+function start(){
     console.log(`
     =================================
     
@@ -23,7 +18,11 @@ function businessOwnerPrompt() {
     
     =================================
     `);
-    
+    businessOwnerPrompt() 
+}
+
+// Initial prompts for Business Owner
+function businessOwnerPrompt() {
     inquirer
         .prompt([
             {
@@ -60,11 +59,10 @@ function businessOwnerPrompt() {
             } else if (optionsForOwner === 'Update An Employee Role') {
                 return updateARole();
             }
-
-
         })
 };
 
+// Function to view all departments with sql query instance coming from queryDepartments
 const viewAllDepartments = () => {
     console.log(`
 
@@ -72,53 +70,49 @@ All departments for [My_Business].
 ==================================
 
     `);
-    const sqlCommand = `SELECT * FROM departments`;
+   db.queryDepartments().then(([depts])=>{
+        console.table(depts)
+   }).then(()=> businessOwnerPrompt())
 
-    db.query(sqlCommand, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(result);
-        businessOwnerPrompt();
-    })
 };
 
+// Function to view all roles with sql query instance coming from queryRoles
 const viewAllRoles = () => {
     console.log(`
 
 All roles for [My_Business].
-===========================================================
+==========================================
 
     `);
-    const sqlCommand = `SELECT * FROM roles`;
-
-    db.query(sqlCommand, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(result);
-        businessOwnerPrompt();
-    })
+    db.queryRoles().then(([roles])=>{
+        console.table(roles)
+    }).then(()=> businessOwnerPrompt())
 };
 
+// Function to view all employees with sql query instance coming from queryEmployees
 const viewAllEmployees = () => {
     console.log(`
 
 All employees for [My_Business].
-======================================================================================
+=======================================================================================
     
     `);
-    const sqlCommand = `SELECT * FROM employees`;
-    
-    db.query(sqlCommand, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        console.table(result);
-        businessOwnerPrompt();
-    })
+    db.queryEmployees().then(([employees])=>{
+        console.table(employees)
+    }).then(()=> businessOwnerPrompt())
 };
 
+// TODO: finish/refine pseudo code
+// Pseudo code for addADepartment function:
+// 1 add inquirer.prompt asking user to enter department name
+// 2 user enters department name 
+// 3 validate user input
+// 4 .then() function 
+// 5. inside .then() create a variable sqlCommand with INSERT INTO departments (DepartmentName) VALUES (?)
+// 6. db.query function with sqlCommand variable, err, result
+// 7. if there's an error console log it
+// 8. console log a success message to user
+// 9. start the businessOwnerPrompt function again
 const addADepartment = () => {
     console.log('You are adding a new department.');
 };
@@ -131,9 +125,16 @@ const addAnEmployee = () => {
     console.log('You are adding a new employee.');
 };
 
+// TODO: finish/refine pseudo code
+// Pseudo code for updateARole function:
+// 1. If user wants to update an employee then show them the employee list
+// 2. after the table displays, add an inquirer prompt asking the user to select the user they want to update
+// 3. After the user chooses an employee to update, add an inquirer prompt to allow the user to select a new role for the chose employee
+// 4. then update the employee's role/title with a db.query
+// 5. inside the db.query function, create a sqlCommand variable with UPDATE employees SET title = ? WHERE ID = ?
+// 6. console.log error if any
+// 7. console log a success message to the user after updating
+// 8. return to the businessOwnerPrompt function again
 const updateARole = () => {
     console.log('You are updating an employee role.');
 };
-
-
-

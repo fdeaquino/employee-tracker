@@ -1,27 +1,32 @@
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS departments;
+-- function for database creation/deletion
+-- Tables automatically delete if database deletes
+DROP DATABASE IF EXISTS My_Business;
 
-CREATE TABLE departments (
-    ID INT PRIMARY KEY AUTO_INCREMENT, 
-    DepartmentName VARCHAR(30) NOT NULL
+CREATE DATABASE My_Business;
+USE My_Business;
+
+-- creates department table with fields: id, name
+CREATE TABLE department(
+    id INT PRIMARY KEY AUTO_INCREMENT, 
+    name VARCHAR(30) UNIQUE NOT NULL
 );
 
-CREATE TABLE roles (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    Title VARCHAR(30) NOT NULL,
-    Salary DECIMAL NOT NULL,
-    DepartmentName VARCHAR(30) NOT NULL,
-    DepartmentID INT NOT NULL,
-    FOREIGN KEY (DepartmentId) REFERENCES departments(ID)
+-- creates role table with fields: id, title, salary, department_id
+CREATE TABLE role (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(30) NOT NULL,
+    salary DECIMAL NOT NULL,
+    department_id INT NOT NULL,
+    FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
--- TODO: Do any fields need to reference foreign keys? Doesn't say in acceptance criteria. 
-CREATE TABLE employees (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(30) NOT NULL,
-    LastName VARCHAR(30) NOT NULL,
-    Title VARCHAR(30) NOT NULL,
-    Department VARCHAR(30) NOT NULL,
-    Salary DECIMAL NOT NULL,
-    Manager VARCHAR(30)
+-- creates employee table with fields: id, first_name, last_name, role_id, manager_id
+CREATE TABLE employee (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
+    role_id INT NOT NULL,
+    FOREIGN KEY (role_id) REFERENCES role(id),
+    manager_id INT,
+    FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
