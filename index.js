@@ -102,23 +102,57 @@ All employees for [My_Business].
     }).then(()=> businessOwnerPrompt())
 };
 
-// TODO: finish/refine pseudo code
-// Pseudo code for addADepartment function:
-// 1 add inquirer.prompt asking user to enter department name
-// 2 user enters department name 
-// 3 validate user input
-// 4 .then() function 
-// 5. inside .then() create a variable sqlCommand with INSERT INTO departments (DepartmentName) VALUES (?)
-// 6. db.query function with sqlCommand variable, err, result
-// 7. if there's an error console log it
-// 8. console log a success message to user
-// 9. start the businessOwnerPrompt function again
 const addADepartment = () => {
-    console.log('You are adding a new department.');
+    // console.log('You are adding a new department.');
+
+    inquirer
+    .prompt([
+        {
+            type:'input', 
+            name:'name',
+            message:'What should be the name of the new department?',
+        }
+    ])
+    .then((data)=> {
+        console.log(data.name);
+        db.queryAddDept(data.name).then(([data])=>{
+            console.log(`
+            Success! You added a new department.
+            ====================================`);
+        })
+        .then(()=> businessOwnerPrompt())
+    })
 };
 
 const addARole = () => {
-    console.log('You are adding a new role.');
+    // console.log('You are adding a new role.');
+    inquirer
+    .prompt([
+        {
+            type:'input', 
+            name:'title',
+            message:'What should be the name of the new role?',
+        }, 
+        {
+            type:'input', 
+            name:'salary',
+            message:'What should be the salary for this new role?',
+        },
+        {
+            type:'number', 
+            name:'department_id',
+            message:'What is the department ID of this new role? (Ex: Engineering=1, Finance=2, Legal=3, Sales=4)',
+        }
+    ])
+    .then((data)=> {
+        console.log(data.title, data.salary, data.department_id);
+        db.queryAddRole(data).then(()=>{
+            console.log(`
+            Success! You added a new department.
+            ====================================`);
+        })
+        .then(()=> businessOwnerPrompt())
+    })
 };
 
 const addAnEmployee = () => {
