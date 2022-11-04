@@ -1,10 +1,10 @@
 # Employee Tracker
 
 ## Description
-This command-line application helps the user (business owner) keep track of important information about their business such as departments, employees and job titles. Additionally, this application lets the user add a department and add roles. 
+This command-line application helps the user (business owner) keep track of important information about their business such as departments, employees and job titles. Additionally, this application lets the user add a department, new roles, and new employees. 
 
 In the future, I plan to make this application more functional by adding more features: 
-- add and update employees
+- update employees
 - delete departments, roles and employees 
 - update employee managers 
 - view employees by departments and managers
@@ -25,8 +25,7 @@ To use this application you will need to clone this repository into your local m
 
 ## Usage
 
-Please follow [this video guide]
-( <!-- TODO: INSERT LINK HERE then format --> ) 
+Please follow [this video guide](https://drive.google.com/file/d/1UPwQC8bYgik5BaN1-O3i2dKIZDl1ylvP/view?usp=sharing) 
 for using the Employee Tracker or follow the steps below.
 
 ## Credits
