@@ -27,10 +27,13 @@ class Query{
     
     queryAddRole(data){
         const param = [data.title, data.salary, data.department_id]
-        console.log(param)
         return this.connection.promise().query('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', param)
     }
 
+    queryAddEmployee(data){
+        const param = [data.first_name, data.last_name, data.role_id, data.manager_id]
+        return this.connection.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', param)
+    }
 }
 
 

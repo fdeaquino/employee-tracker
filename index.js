@@ -148,15 +148,47 @@ const addARole = () => {
         console.log(data.title, data.salary, data.department_id);
         db.queryAddRole(data).then(()=>{
             console.log(`
-            Success! You added a new department.
-            ====================================`);
+            Success! You added a new role.
+            ==============================`);
         })
         .then(()=> businessOwnerPrompt())
     })
 };
 
 const addAnEmployee = () => {
-    console.log('You are adding a new employee.');
+    // console.log('You are adding a new employee.');
+    inquirer
+    .prompt([
+        {
+            type:'input', 
+            name:'first_name',
+            message:"What is the new employee's first name?",
+        }, 
+        {
+            type:'input', 
+            name:'last_name',
+            message:"What is the new employee's last name?",
+        },
+        {
+            type:'input', 
+            name:'role_id',
+            message:'What is the role id of this new emplyee? (Ex: Sales Lead=1, Salesperson=2, Lead Engineer=3, Software Engineer=4, Account Manager=5, Accountant=6, Legal Team Lead=8, Lawyer=8)',
+        }, 
+        {
+            type:'number', 
+            name:'manager_id',
+            message:'What is the manager ID of this new emplyee? (Ex: Frida Khalo=1, Selena Quintanilla=3, Ricky Martin=5, Vicente Fernandez=7)',
+        }
+    ])
+    .then((data)=> {
+        console.log(data.first_name, data.last_name, data.role_id, data.manager_id);
+        db.queryAddEmployee(data).then(()=>{
+            console.log(`
+            Success! You added a new employee.
+            ==================================`);
+        })
+        .then(()=> businessOwnerPrompt())
+    })
 };
 
 // TODO: finish/refine pseudo code
